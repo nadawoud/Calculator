@@ -40,7 +40,7 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func displayInOperationDetails(_ sender: UIButton) {
-//      operationDetails.text = operationDetails.text! + " " + sender.currentTitle! + " ..."
+     operationDetails.text = operationDetails.text! + " " + sender.currentTitle!
     }
     
     @IBAction func touchDigit(_ sender: UIButton) {
@@ -53,6 +53,7 @@ class CalculatorViewController: UIViewController {
         else {
             display.text = digit
             userIsTyping = true
+            //operationDetails.text = calculator.resultIsPending ? sender.currentTitle! : " "
         }
     }
     

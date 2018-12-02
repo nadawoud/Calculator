@@ -27,6 +27,8 @@ struct CalculatorBrain {
         }
     }
     
+    var resultIsPending = false
+    
     private enum Operation {
         case constant(Double)
         case unaryOperation((Double) -> Double)
@@ -69,18 +71,22 @@ struct CalculatorBrain {
             switch operation {
             case .constant(let value):
                 accumulator = value
+                resultIsPending = false
             case .unaryOperation(let function):
                 if accumulator != nil {
                     accumulator = function(accumulator!)
+                    resultIsPending = false
                 }
             case .binaryOperation(let function):
                 if accumulator != nil {
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator!)
                     accumulator = nil
+                    resultIsPending = true
                 }
             case .equals:
                 if accumulator != nil {
                     accumulator = pendingBinaryOperation?.perform(with: accumulator!)
+                    resultIsPending = true
                 }
             }
         }
